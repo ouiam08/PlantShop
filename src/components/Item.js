@@ -1,7 +1,7 @@
 import React from 'react';
-import './assets/Banner.css'
-import watering from './assets/assets/water.svg'
-import sun from './assets/assets/sun.svg'
+import '../style/Banner.css';
+import watering from '../assets/assets/water.svg'
+import sun from '../assets/assets/sun.svg'
 const Item = ({name,
                   light,
                   water,

@@ -1,98 +1,62 @@
-import monstera from '../assets/monstera.jpg'
-import lyrata from '../assets/lyrata.jpg'
-import pothos from '../assets/pothos.jpg'
-import succulent from '../assets/succulent.jpg'
-import olivier from '../assets/olivier.jpg'
-import basil from '../assets/basil.jpg'
-import mint from '../assets/mint.jpg'
-import calathea from '../assets/calathea.jpg'
-import cactus from '../assets/cactus.jpg'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-export const plantList = [
-	{
-		name: 'monstera',
-		category: 'classique',
-		id: '1ed',
-		light: 2,
-		water: 3,
-		cover: monstera,
-		price: 15
-	},
-	{
-		name: 'ficus lyrata',
-		category: 'classique',
-		id: '2ab',
-		light: 3,
-		water: 1,
-		cover: lyrata,
-		price: 16
-	},
+import monstera from './assets/assets/monstera.jpg';
+import lyrata from './assets/assets/lyrata.jpg';
+import pothos from './assets/assets/pothos.jpg';
+import succulent from './assets/assets/succulent.jpg';
+import olivier from './assets/assets/olivier.jpg';
+import basil from './assets/assets/basil.jpg';
+import mint from './assets/assets/mint.jpg';
+import calathea from './assets/assets/calathea.jpg';
+import cactus from './assets/assets/cactus.jpg';
 
-	{
-		name: 'pothos argenté',
-		category: 'classique',
-		id: '3sd',
-		light: 1,
-		water: 2,
-		cover: pothos,
+const PlantList = () => {
+  const [plantList, setPlantList] = useState([]);
 
-		price: 9
-	},
-	{
-		name: 'calathea',
-		category: 'classique',
-		id: '4kk',
-		light: 2,
-		water: 3,
-		cover: calathea,
+  const apiUrl = 'http://localhost:8081/api/plants';
 
-		price: 20
-	},
-	{
-		name: 'olivier',
-		category: 'extérieur',
-		id: '5pl',
-		light: 3,
-		water: 1,
-		cover: olivier,
-		price: 25
-	},
+  useEffect(() => {
+    axios.get(apiUrl)
+      .then(response => {
+        const updatedPlantList = response.data.map(plant => {
+          return {
+            ...plant,
+            cover: getPlantImage(plant.name),
+          };
+        });
+        setPlantList(updatedPlantList);
+      })
+      .catch(error => {
+        console.error('Error during Axios request:', error);
+      });
+  }, []);
 
-	{
-		name: 'cactus',
-		category: 'plante grasse',
-		id: '8fp',
-		light: 2,
-		water: 1,
-		cover: cactus,
-		price: 6
-	},
-	{
-		name: 'basilique',
-		category: 'extérieur',
-		id: '7ie',
-		light: 2,
-		water: 3,
-		cover: basil,
-		price: 5
-	},
-	{
-		name: 'succulente',
-		category: 'plante grasse',
-		id: '9vn',
-		light: 2,
-		water: 1,
-		cover: succulent,
-		price: 8
-	},
+  function getPlantImage(plantName) {
+    switch (plantName) {
+      case 'monstera':
+        return monstera;
+      case 'ficus lyrata':
+        return lyrata;
+      case 'pothos argenté':
+        return pothos;
+      case 'calathea':
+        return calathea;
+      case 'olivier':
+        return olivier;
+      case 'cactus':
+        return cactus;
+      case 'basilique':
+        return basil;
+      case 'succulente':
+        return succulent;
+      case 'menthe':
+        return mint;
+      default:
+        return '';
+    }
+  }
+  return plantList;
+}
 
-	{
-		name: 'menthe',
-		category: 'extérieur',
-		id: '6uo',
-		light: 2,
-		water: 2,
-		cover: mint,
-		price: 4
-	}
-]
+export default PlantList;

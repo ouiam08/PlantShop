@@ -1,10 +1,9 @@
-import React, {useEffect, useState} from 'react';
-import { plantList } from './planlist';
+import React from 'react';
+import PlantList from '../planlist';
 import Item from './Item';
-import './assets/Banner.css';
-
+import '../style/Banner.css';
 const Items = ({ cat,addToLocalStorage }) => {
-
+    const plantList = PlantList();
     const filteredPlants = cat
         ? plantList.filter((plant) => plant.category === cat)
         : plantList;

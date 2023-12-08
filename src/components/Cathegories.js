@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { plantList } from './planlist';
-import Items from "./items";
-
+import PlantList from '../planlist';
+import '../style/Banner.css';
 const Categories = ({selectedCath,setCath}) => {
     const uniqueCategories = {};
-
+    const plantList = PlantList();
     plantList.forEach((plant) => {
         uniqueCategories[plant.category] = true;
     });
@@ -12,8 +11,7 @@ const Categories = ({selectedCath,setCath}) => {
     const allCategories = Object.keys(uniqueCategories);
 
     const handleCategoryChange = (event) => {
-        const selectedCategory = event.target.value;
-        setCath(selectedCategory);
+        setCath(event.target.value);
     };
 
     return (
